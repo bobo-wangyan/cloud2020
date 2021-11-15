@@ -14,3 +14,9 @@
 /cloud-provider-hygtrix-payment8001/target/
 /cloud-provider-payment8001/target/
 /cloud-provider-payment8004/target/
+/.idea/encodings.xml
+/.idea/jarRepositories.xml
+/.idea/misc.xml
+/.idea/uiDesigner.xml
+/.idea/vcs.xml
+/.idea/.gitignore
