@@ -1,0 +1,55 @@
+
+
+server:
+  port: 2002
+
+spring:
+  application:
+    name: seata-storage-service
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: fsp_tx_group
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.0.0.131:3306/seata_storage
+    username: root
+    password: 123456
+
+logging:
+  level:
+    io:
+      seata: info
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+
+#  这一块是配置seata的
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  enable-auto-data-source-proxy: true #是否开启数据源自动代理,默认为true
+  tx-service-group: my_test_tx_group  #要与config.txt配置文件中的vgroupMapping一致
+  registry: #registry根据seata服务端的registry配置
+    type: nacos #默认为file
+    nacos:
+      application: seata-server #配置自己的seata服务,与registry.conf一致
+      server-addr: 127.0.0.1:8848 #根据自己的seata服务配置
+      username: nacos #根据自己的seata服务配置
+      password: nacos  #根据自己的seata服务配置
+      namespace: 1adf5a6a-93e3-409c-9410-e9c7ae0e0067 #根据自己的seata服务配置
+      cluster: default # 配置自己的seata服务cluster, 默认为 default
+      group: "SEATA_GROUP" #根据自己的seata服务配置
+  config:
+    type: nacos #配置中心设置为nacos，直接从nacos上获取配置
+    nacos:
+      server-addr: 127.0.0.1:8848  #配置自己的nacos地址
+      group: SEATA_GROUP  #配置自己的group，这里我配置跟registry.conf一样
+      username: nacos  #配置自己的username
+      password: nacos  #配置自己的password
+      namespace: 1adf5a6a-93e3-409c-9410-e9c7ae0e0067  #根据自己的seata服务配置
+      # dataId如果不用，就不需要配置
+#      dataId: seataServer.properties  #配置自己的dataId,由于搭建服务端时把客户端的配置也写在了seataServer.properties,所以这里用了和服务端一样的配置文件,实际客户端和服务端的配置文件分离出来更好
